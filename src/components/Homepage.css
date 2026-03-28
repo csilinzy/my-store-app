@@ -1,0 +1,247 @@
+.homepage {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8fafb;
+  color: #334155;
+  line-height: 1.6;
+}
+
+.hero {
+  background: linear-gradient(135deg, #0f4e7b 0%, #1a6a9c 100%);
+  color: white;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  opacity: 0.9;
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+  padding: 14px 32px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background-color: #22c55e;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #16a34a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.trust-section {
+  padding: 80px 20px;
+  background-color: white;
+}
+
+.trust-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.trust-item {
+  text-align: center;
+  padding: 20px;
+}
+
+.trust-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.trust-item h3 {
+  font-size: 1.4rem;
+  color: #0f4e7b;
+  margin-bottom: 10px;
+}
+
+.trust-item p {
+  color: #64748b;
+}
+
+.how-it-works {
+  padding: 80px 20px;
+  background-color: #f1f8ff;
+  text-align: center;
+}
+
+.how-it-works h2 {
+  font-size: 2.2rem;
+  color: #0f4e7b;
+  margin-bottom: 50px;
+}
+
+.steps-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+}
+
+.step {
+  background: white;
+  padding: 30px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.step-number {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  background-color: #1a6a9c;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.step h3 {
+  font-size: 1.3rem;
+  color: #0f4e7b;
+  margin: 10px 0 15px;
+}
+
+.stats-section {
+  padding: 60px 20px;
+  background: linear-gradient(to right, #0f4e7b, #1a6a9c);
+  color: white;
+  text-align: center;
+}
+
+.stats-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+}
+
+.stat-item h3 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.features-section {
+  padding: 80px 20px;
+  background-color: white;
+}
+
+.features-section h2 {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #0f4e7b;
+  margin-bottom: 50px;
+}
+
+.features-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+}
+
+.feature h3 {
+  font-size: 1.4rem;
+  color: #0f4e7b;
+  margin-bottom: 15px;
+}
+
+.cta-section {
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #166e42 0%, #1a7f50 100%);
+  color: white;
+  text-align: center;
+}
+
+.cta-content h2 {
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+}
+
+.cta-content p {
+  max-width: 700px;
+  margin: 0 auto 30px;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2.2rem;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .how-it-works,
+  .features-section,
+  .stats-section,
+  .trust-section,
+  .cta-section {
+    padding: 50px 15px;
+  }
+  
+  .steps-container,
+  .features-container,
+  .trust-container,
+  .stats-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .step {
+    max-width: 350px;
+    margin: 0 auto;
+  }
+}

@@ -2,12 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext'; // Import useAuth hook
-import SearchBar from './SearchBar';
 import './Header.css';
 
 const Header = () => {
   const { getTotalItems } = useCart();
-  const { user, loading, logout } = useAuth(); // Get user and logout from auth context
+  const { user, logout } = useAuth(); // Get user and logout from auth context
 
   const handleLogout = () => {
     console.log('[Header] Logout button clicked');
@@ -19,28 +18,24 @@ const Header = () => {
       <div className="header-container">
         <div className="logo-section">
           <Link to="/">
-            <h1>My Store</h1>
+            <h1>PharmaTrade</h1>
           </Link>
         </div>
         
         <nav className="navigation">
           <ul className="nav-links">
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/products">Products</Link></li>
-            <li><Link to="/categories">Categories</Link></li>
-            <li><Link to="/about">About</Link></li>
-            <li><Link to="/contact">Contact</Link></li>
+            <li><Link to="/products">Inventory</Link></li>
+            <li><Link to="/suppliers">Suppliers</Link></li>
+            <li><Link to="/resources">Resources</Link></li>
+            <li><Link to="/support">Support</Link></li>
           </ul>
         </nav>
         
         <div className="header-actions">
-          <div className="search-bar">
-            <SearchBar />
-          </div>
-          
           <div className="user-actions">
             <Link to="/cart" className="cart-link">
-              🛒 Cart (<span className="cart-count">{getTotalItems()}</span>)
+              🛒 Orders (<span className="cart-count">{getTotalItems()}</span>)
             </Link>
             
             {user ? (

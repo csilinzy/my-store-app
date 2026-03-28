@@ -6,13 +6,18 @@ import { productAPI } from '../utils/api';
 // Global cache for openFDA results to enable partial matching
 let cachedOpenFDAResults = [];
 
-const SearchBar = () => {
-  const [query, setQuery] = useState('');
+const SearchBar = ({ onSearch, searchTerm }) => {
+  const [query, setQuery] = useState(searchTerm || '');
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [activeSuggestion, setActiveSuggestion] = useState(-1);
   const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef(null);
+
+  // Update local query state when prop changes
+  useEffect(() => {
+    setQuery(searchTerm || '');
+  }, [searchTerm]);
 
   // Search for products when query changes
   useEffect(() => {
@@ -101,7 +106,13 @@ const SearchBar = () => {
   }, [query]);
 
   const handleInputChange = (e) => {
-    setQuery(e.target.value);
+    const value = e.target.value;
+    setQuery(value);
+    
+    // Call the onSearch callback if provided
+    if (onSearch) {
+      onSearch(value);
+    }
   };
 
   const handleSuggestionClick = async (suggestion) => {
@@ -118,6 +129,11 @@ const SearchBar = () => {
     setQuery(suggestion.name);
     setShowSuggestions(false);
     inputRef.current.focus(); // Keep focus on input after selection
+    
+    // Call the onSearch callback if provided
+    if (onSearch) {
+      onSearch(suggestion.name);
+    }
   };
 
   // Handler for "List Your Own" button on search results

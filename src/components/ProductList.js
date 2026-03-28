@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import AddProductForm from './AddProductForm';
+import SearchBar from './SearchBar'; // Import the SearchBar component
 import './ProductList.css';
 import { productAPI } from '../utils/api';
 import { useAuth } from '../context/AuthContext'; // Import the auth context
 
 const ProductList = () => {
-  const { user } = useAuth(); // Get user from auth context
+  // Get auth context (user available if needed for future features)
+  useAuth();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -14,13 +16,17 @@ const ProductList = () => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [selectedProductForListing, setSelectedProductForListing] = useState(null);
 
+  console.log('[ProductList] Component mounted');
+
   useEffect(() => {
+    console.log('[ProductList] Fetching products...');
     fetchProducts();
   }, []);
 
   // Listen for the requestListProduct event
   useEffect(() => {
     const handleRequestListProduct = (event) => {
+      console.log('[ProductList] Received requestListProduct event:', event.detail);
       setSelectedProductForListing(event.detail);
       setShowAddForm(true);
     };
@@ -34,8 +40,10 @@ const ProductList = () => {
   const fetchProducts = async () => {
     try {
       // Using the productAPI to fetch pharmaceutical products
+      console.log('[ProductList] Calling productAPI.getProducts()');
       const response = await productAPI.getProducts();
       
+      console.log('[ProductList] Products fetched successfully:', response);
       setProducts(response);
       setLoading(false);
     } catch (err) {
@@ -124,6 +132,7 @@ const ProductList = () => {
         }
       ];
       
+      console.log('[ProductList] Using fallback products:', fallbackProducts);
       setProducts(fallbackProducts);
       setLoading(false);
     }
@@ -133,7 +142,9 @@ const ProductList = () => {
   useEffect(() => {
     const updateProducts = async () => {
       try {
+        console.log('[ProductList] Updating products from API');
         const response = await productAPI.getProducts();
+        console.log('[ProductList] Products updated:', response);
         setProducts(response);
       } catch (err) {
         console.error('[ProductList] Error updating products:', err);
@@ -144,6 +155,7 @@ const ProductList = () => {
   }, []);
 
   const handleProductAdded = (productData) => {
+    console.log('[ProductList] Product added:', productData);
     // In a real implementation, this would add the product to the backend
     // For now, we'll just close the form and show a success message
     alert(`${productData.name} has been successfully listed!`);
@@ -155,6 +167,7 @@ const ProductList = () => {
   };
 
   const handleCloseForm = () => {
+    console.log('[ProductList] Closing add form');
     setShowAddForm(false);
     setSelectedProductForListing(null);
   };
@@ -167,12 +180,20 @@ const ProductList = () => {
     product.dosage.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  console.log(`[ProductList] Rendering ${filteredProducts.length} products`);
+
   if (loading) return <div className="loading">Loading pharmaceutical products...</div>;
   if (error) return <div className="error">Error: {error}. Showing demo data...</div>;
 
   return (
     <div className="product-list-container">
-      <h2>Pharmaceutical Products</h2>
+      <h2>Pharmaceutical Inventory</h2>
+      
+      {/* Adding the search bar under inventory as requested */}
+      <div className="search-bar-under-inventory">
+        <SearchBar onSearch={setSearchTerm} searchTerm={searchTerm} />
+      </div>
+      
       {showAddForm ? (
         <div className="add-product-section">
           <button onClick={handleCloseForm} className="back-to-products-btn">Back to Products</button>
@@ -183,15 +204,6 @@ const ProductList = () => {
         </div>
       ) : (
         <>
-          <div className="search-bar">
-            <input
-              type="text"
-              placeholder="Search by name, common name, NDC, or dosage..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              aria-label="Search products"
-            />
-          </div>
           <div className="product-grid">
             {filteredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
@@ -201,6 +213,7 @@ const ProductList = () => {
           <div className="add-product-cta">
             <button 
               onClick={() => {
+                console.log('[ProductList] Add new product button clicked');
                 setSelectedProductForListing(null);
                 setShowAddForm(true);
               }}

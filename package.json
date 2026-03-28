@@ -44,5 +44,7 @@
     "html-webpack-plugin": "^5.6.6",
     "webpack": "^5.105.4",
     "webpack-dev-server": "^5.2.3"
-  }
+  },
+  "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build"
+
 }

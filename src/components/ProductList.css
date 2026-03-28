@@ -1,6 +1,6 @@
 .product-list-container {
   padding: 20px;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -10,12 +10,13 @@
   color: #333;
 }
 
-.search-bar {
-  margin-bottom: 20px;
+.search-bar-under-inventory {
+  margin-bottom: 30px;
   text-align: center;
+  padding: 0 10px;
 }
 
-.search-bar input {
+.search-bar-under-inventory .search-input {
   width: 100%;
   max-width: 500px;
   padding: 12px 15px;
@@ -25,7 +26,7 @@
   box-sizing: border-box;
 }
 
-.search-bar input:focus {
+.search-bar-under-inventory .search-input:focus {
   outline: none;
   border-color: #007bff;
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
@@ -33,8 +34,8 @@
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
   margin-top: 20px;
 }
 
@@ -95,11 +96,15 @@
 
 @media (max-width: 768px) {
   .product-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
   }
   
   .product-list-container {
     padding: 10px;
+  }
+  
+  .search-bar-under-inventory {
+    padding: 0 5px;
   }
 }

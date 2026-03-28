@@ -1,0 +1,134 @@
+.resources-page {
+  padding: 20px 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hero-section {
+  background: linear-gradient(135deg, #166e42 0%, #1a7f50 100%);
+  color: white;
+  padding: 60px 20px;
+  text-align: center;
+  margin-bottom: 40px;
+  border-radius: 8px;
+}
+
+.hero-section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.content-section {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.resource-category {
+  background: white;
+  margin-bottom: 30px;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.resource-category h2 {
+  color: #166e42;
+  font-size: 1.6rem;
+  margin-top: 0;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 10px;
+}
+
+.resource-category ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.resource-category li {
+  padding: 8px 0;
+  border-bottom: 1px dashed #e2e8f0;
+  font-size: 1.1rem;
+  color: #334155;
+}
+
+.resource-category li:last-child {
+  border-bottom: none;
+}
+
+.resource-downloads h2 {
+  color: #166e42;
+  font-size: 1.6rem;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 10px;
+}
+
+.downloads-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.download-item {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.download-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.download-item h3 {
+  color: #166e42;
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+
+.download-item p {
+  color: #64748b;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+}
+
+.download-btn {
+  background-color: #22c55e;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  width: 100%;
+}
+
+.download-btn:hover {
+  background-color: #16a34a;
+}
+
+@media (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 2rem;
+  }
+  
+  .hero-section p {
+    font-size: 1rem;
+  }
+  
+  .content-section {
+    padding: 0 15px;
+  }
+  
+  .downloads-grid {
+    grid-template-columns: 1fr;
+  }
+}

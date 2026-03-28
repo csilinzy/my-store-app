@@ -260,7 +260,7 @@ export const productAPI = {
       await new Promise(resolve => setTimeout(resolve, 300));
       
       // Find the product with the given ID
-      const product = mockPharmaProducts.find(p => p.id == productId);
+      const product = mockPharmaProducts.find(p => p.id === productId);
       
       if (!product) {
         throw new Error(`Product with ID ${productId} not found`);
@@ -278,7 +278,7 @@ export const productAPI = {
     console.log(`[API Utility] Calling get products for user ID: ${userId}`);
     try {
       // Filter products by user ID
-      const userProducts = mockPharmaProducts.filter(p => p.userId == userId);
+      const userProducts = mockPharmaProducts.filter(p => p.userId === userId);
       return userProducts;
     } catch (error) {
       console.error('[API Utility] Get user products error:', error);

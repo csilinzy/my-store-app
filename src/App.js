@@ -2,12 +2,14 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext'; // Import AuthProvider
-import ProtectedRoute from './components/ProtectedRoute'; // Import ProtectedRoute
 import Header from './components/Header';
+import Homepage from './components/Homepage';
 import ProductList from './components/ProductList';
 import Footer from './components/Footer';
 import CartPage from './components/CartPage'; 
 import Login from './components/Login'; // Import Login component
+import About from './components/About'; // Import About component
+import Resources from './components/Resources'; // Import Resources component
 
 function App() {
   return (
@@ -18,9 +20,16 @@ function App() {
             <Header />
             <main className="main-content">
               <Routes>
-                <Route path="/" element={<ProductList />} />
+                <Route path="/" element={<Homepage />} />
+                <Route path="/home" element={<Homepage />} />
                 <Route path="/products" element={<ProductList />} />
                 <Route path="/cart" element={<CartPage />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/resources" element={<Resources />} />
+                
+                {/* Placeholder routes for additional pages */}
+                <Route path="/suppliers" element={<Homepage />} />
+                <Route path="/support" element={<Homepage />} />
                 
                 {/* Authentication routes */}
                 <Route path="/login" element={<Login />} />

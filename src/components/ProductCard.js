@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
-import './ProductCard.css'; // New CSS file for ProductCard
+import './ProductCard.css';
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
   const [showDetails, setShowDetails] = useState(false);
 
-  const handleAddToCart = () => {
+  // Log when a product card is rendered
+  console.log('[ProductCard] Rendering product:', product.name);
+
+  const handleAddToCart = (e) => {
+    e.stopPropagation();
+    
     // Check if product is from openFDA (has no price or stock)
     if (product.isFromOpenFDA) {
       alert("This product is from FDA database and is not currently in stock. Please contact support for availability.");
@@ -14,45 +19,104 @@ const ProductCard = ({ product }) => {
     }
     
     addToCart(product);
+    console.log('[ProductCard] Added to cart:', product.name);
   };
 
   const toggleDetails = () => {
+    console.log('[ProductCard] Toggling details for:', product.name);
     setShowDetails(!showDetails);
   };
 
   // Handler for "List Your Own" button
   const handleListYourOwn = (e) => {
     e.stopPropagation();
+    console.log('[ProductCard] List Your Own clicked for:', product.name);
     // This would open a modal or navigate to a form with pre-filled data
     // For now, we'll just trigger a custom event that parent components can listen to
     window.dispatchEvent(new CustomEvent('requestListProduct', { detail: product }));
   };
 
   return (
-    <div className="product-card" onClick={toggleDetails}>
-      <img src={product.image || '/placeholder-image.jpg'} alt={product.name} />
-      <div className="product-info">
-        <h3>{product.name}</h3>
-        <p className="common-name">{product.commonName ? `Also known as: ${product.commonName}` : ''}</p>
-        <p className="dosage">{product.dosage ? `Dosage: ${product.dosage}` : ''}</p>
-        <p className="ndc">NDC: {product.ndc || 'N/A'}</p>
+    <div className="product-card-professional" onClick={toggleDetails}>
+      <div className="product-image-container">
+        <img 
+          src={product.image || '/placeholder-image.jpg'} 
+          alt={product.name} 
+          onError={(e) => {
+            e.target.src = '/placeholder-image.jpg'; // fallback image
+          }}
+        />
+      </div>
+      <div className="product-info-professional">
+        <h3 className="product-name">{product.name}</h3>
+        <p className="product-common-name">{product.commonName || 'Generic Name: N/A'}</p>
+        <div className="product-meta">
+          <p className="product-dosage">Dosage: {product.dosage || 'N/A'}</p>
+          <p className="product-ndc">NDC: {product.ndc || 'N/A'}</p>
+        </div>
+        
         {product.isFromOpenFDA ? (
-          <p className="price unavailable">Currently Unavailable</p>
+          <p className="price unavailable">Unavailable</p>
         ) : (
           <p className="price">${typeof product.price === 'number' ? product.price.toFixed(2) : product.price}</p>
         )}
+        
         {product.isFromOpenFDA && (
-          <p className="fda-source-badge">From FDA Database</p>
+          <p className="fda-source-badge">FDA Source</p>
         )}
         {!product.isFromOpenFDA && product.userId && (
-          <p className="owned-by-user">Listed by you</p>
+          <p className="owned-by-user">Your Listing</p>
+        )}
+      </div>
+      
+      <div className="card-buttons-professional">
+        {product.isFromOpenFDA ? (
+          <>
+            <button 
+              className="unavailable-btn-professional" 
+              onClick={(e) => { 
+                e.stopPropagation(); 
+                console.log('[ProductCard] Unavailable button clicked for:', product.name);
+                alert("This product is from FDA database and is not currently in stock. Please contact support for availability.");
+              }}
+            >
+              Unavailable
+            </button>
+            <button 
+              className="list-your-own-btn-professional"
+              onClick={handleListYourOwn}
+            >
+              List Yours
+            </button>
+          </>
+        ) : (
+          <>
+            <button onClick={handleAddToCart} className="add-to-cart-professional">
+              Add to Cart
+            </button>
+            <button 
+              className="list-your-own-btn-professional"
+              onClick={handleListYourOwn}
+            >
+              List Yours
+            </button>
+          </>
         )}
       </div>
       
       {showDetails && (
-        <div className="product-details-modal" onClick={(e) => e.stopPropagation()}>
-          <div className="product-details-content">
-            <span className="close-btn" onClick={(e) => { e.stopPropagation(); setShowDetails(false); }}>&times;</span>
+        <div className="product-details-modal-professional" onClick={(e) => e.stopPropagation()}>
+          <div className="product-details-content-professional">
+            <span 
+              className="close-btn-professional" 
+              onClick={(e) => { 
+                e.stopPropagation(); 
+                console.log('[ProductCard] Closing details for:', product.name);
+                setShowDetails(false); 
+              }}
+            >
+              &times;
+            </span>
             <h3>{product.name}</h3>
             <p><strong>Common Name:</strong> {product.commonName || 'N/A'}</p>
             <p><strong>Dosage:</strong> {product.dosage || 'N/A'}</p>
@@ -68,60 +132,31 @@ const ProductCard = ({ product }) => {
             {product.serialNumber && <p><strong>Serial Number:</strong> {product.serialNumber}</p>}
             {product.batchNumber && <p><strong>Batch Number:</strong> {product.batchNumber}</p>}
             
-            <div className="modal-buttons">
+            <div className="modal-buttons-professional">
               {product.isFromOpenFDA ? (
                 <button 
-                  className="add-to-cart-modal unavailable" 
+                  className="add-to-cart-modal-professional unavailable" 
                   onClick={(e) => { 
                     e.stopPropagation(); 
+                    console.log('[ProductCard] Modal unavailable button clicked for:', product.name);
                     alert("This product is from FDA database and is not currently in stock. Please contact support for availability.");
                   }}
                 >
                   Not Available
                 </button>
               ) : (
-                <button onClick={(e) => { e.stopPropagation(); handleAddToCart(); }} className="add-to-cart-modal">
+                <button onClick={(e) => { e.stopPropagation(); handleAddToCart(e); }} className="add-to-cart-modal-professional">
                   Add to Cart
                 </button>
               )}
               <button 
-                className="list-your-own-modal"
+                className="list-your-own-modal-professional"
                 onClick={handleListYourOwn}
               >
-                List Your Own
+                List Yours
               </button>
             </div>
           </div>
-        </div>
-      )}
-      
-      {product.isFromOpenFDA ? (
-        <div className="card-buttons">
-          <button 
-            className="unavailable-btn" 
-            onClick={(e) => { 
-              e.stopPropagation(); 
-              alert("This product is from FDA database and is not currently in stock. Please contact support for availability.");
-            }}
-          >
-            Not Available
-          </button>
-          <button 
-            className="list-your-own-btn"
-            onClick={handleListYourOwn}
-          >
-            List Your Own
-          </button>
-        </div>
-      ) : (
-        <div className="card-buttons">
-          <button onClick={(e) => { e.stopPropagation(); handleAddToCart(); }}>Add to Cart</button>
-          <button 
-            className="list-your-own-btn"
-            onClick={handleListYourOwn}
-          >
-            List Your Own
-          </button>
         </div>
       )}
     </div>
