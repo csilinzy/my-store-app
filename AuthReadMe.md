@@ -233,6 +233,7 @@ Admin User:
 Secondary User:
 - Email: `user2@example.com`
 - Password: `UserPassword123!`
+localStorage:  `{"user":{"id":1,"email":"test@example.com","name":"Test User"},"token":"jwt-token-string"}`
 
 ### Test User Implementation
 - Predefined credentials for consistent testing
