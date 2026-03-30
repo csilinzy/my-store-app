@@ -12,10 +12,13 @@ import About from './components/About'; // Import About component
 import Resources from './components/Resources'; // Import Resources component
 
 function App() {
+  // Use the environment variable for basename as per project specifications
+  const basename = process.env.REACT_APP_PUBLIC_URL || '/';
+
   return (
     <AuthProvider> {/* Wrap everything with AuthProvider */}
       <CartProvider>
-        <Router>
+        <Router basename={basename}>
           <div className="App">
             <Header />
             <main className="main-content">

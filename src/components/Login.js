@@ -1,6 +1,7 @@
 // src/components/Login.js
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
 import './Login.css';
 
 const Login = () => {
@@ -8,6 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
   const { login, register, error, clearError, loading } = useAuth();
+  const navigate = useNavigate(); // Initialize navigate hook
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +26,8 @@ const Login = () => {
       
       if (result.success) {
         console.log('[Login Component] Registration successful');
-        // Redirect or show success message
+        // Redirect to dashboard or previous page
+        navigate('/products'); // Redirect to products page after successful registration
       } else {
         console.error('[Login Component] Registration failed:', result.error);
       }
@@ -35,7 +38,8 @@ const Login = () => {
       
       if (result.success) {
         console.log('[Login Component] Login successful');
-        // Redirect to dashboard or previous page
+        // Redirect to products page after successful login
+        navigate('/products');
       } else {
         console.error('[Login Component] Login failed:', result.error);
       }
